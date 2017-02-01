@@ -1,0 +1,58 @@
+<div data-ng-controller="ListaCtrl" class="row" style="padding-top:3px;">
+    <div class="col-sm-15">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="height: 60px;">
+                <div class="row" style="padding-left: 5%;">
+                    <button class="btn btn-primary" data-ng-click="inserisci();">Inserisci nuovo corso</button>
+                </div>
+            </div>
+            <div class="panel-body" style="
+                 height: 80%;
+                 ">
+                <div ng-include="'resources/temp/' + status + '.html'"></div>
+            </div>
+            <div id="pag_div"
+                 style="padding-left: 35%;border-bottom: 1px solid white; margin-top: -11%;">
+
+                <uib-pagination style="margin-bottom: 7%;margin-top: 10%;"
+                                ng-model="currentPage"
+                                total-items="lng"
+                                max-size="maxSize"
+                                boundary-links="true"
+                                previous-text="&lsaquo;"
+                                next-text="&rsaquo;"
+                                first-text="&laquo;"
+                                last-text="&raquo;">
+                </uib-pagination>
+            </div>
+
+
+        </div>
+    </div>
+
+<div class="modal" 
+     id="memberModal" 
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="memberModalLabel" 
+     data-backdrop="static" 
+     data-keyboard="false" 
+     aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;padding-top: 5%;">
+        <div class="modal-content" style="height: 30%;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="memberModalLabel">Nuovo Corso</h4>
+            </div>
+            <div class="modal-body">
+                <div style="width: 100%;height: 100%;" >
+                    <form id="formCorso" name="formCorso"   ng-submit="formCorso.$valid && inserisciCorso($corso);">
+                        <input type="text" ng-model="$corso.nome" ng-required="true" placeholder="Nome Corso" />
+                        <input type="text" ng-model="$corso.dettaglio" ng-required="true" placeholder="Dettaglio Corso" />
+                        <button type="submit" class="btn btn-primary">Salva</button>
+                        <button type="button" class="btn btn-primary" ng-click="annulla($corso);">Annulla</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div></div>

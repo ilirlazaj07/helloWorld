@@ -1,0 +1,22 @@
+<table style="width:98%;margin-left: 1%;">
+    <thead class="thead-inverse">
+    <tr>
+        <th>ID</th>
+        <th>NOME CORSO</th>
+        <th>DETTAGLIO CORSO</th>
+        <th>AZIONI</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="corso in corsi">
+        <td>{{corso.id}}</td>
+        <td>{{corso.nome}}</td>
+        <td>{{corso.dettaglio}}</td>
+        <td>
+            <button type="button" class="btn btn-default btn-xs"  data-ng-click="eliminaCorso(corso)">Rimuovi <span class="glyphicon glyphicon-floppy-remove"></span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+

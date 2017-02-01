@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <servlet>
+        <servlet-name>UsersDataService</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>it.guitar.helloworld.ws.service</param-value>
+        </init-param>
+    </servlet>
+  
+    <servlet-mapping>
+        <servlet-name>UsersDataService</servlet-name>
+        <url-pattern>/ws/*</url-pattern>
+    </servlet-mapping>   
+    
+    
+    <!-- PER LA PARTE DELLA BASIC AUTHENTICATION..................
+    <security-constraint>
+        <web-resource-collection>
+            <url-pattern>/rest/corsi/*</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>manager-gui</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+    </login-config>
+    -->
+</web-app>

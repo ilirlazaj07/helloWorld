@@ -1,0 +1,141 @@
+<div data-ng-controller="DetailsCtrl">
+    <h2 class="h2-cartelle" style="padding-left: 35px;">Dettaglio Flusso</h2>
+    <div class="triangle-back" data-ng-click="goBack();"></div>
+
+    <form class="form-horizontal">
+
+        <div class="control-group" style="padding-bottom: 2%;">
+            <div class="controls form-inline">
+                <label for="idFl">Id Flusso</label>
+                <input type="text" readonly class="input-small form-control" id="idFl"
+                       style="margin-right: 5%;width: 10%" data-ng-model="ID">
+                <label for="dscrFlusso">Tipo</label>
+                <input type="text" readonly class="input-small form-control" id="dscrFlusso" style="margin-right: 5%;"
+                       data-ng-model="descrFls">
+                <label for="presaIN">Presa in carico</label>
+                <input type="text" readonly class="input-small form-control" id="presaIN" style="margin-right: 5%;"
+                       data-ng-model="presaINCarico">
+                <label for="esito">Esito</label>
+                <div class="upperCircleDET" style="margin-right: 18%;">
+                    <div class="circleDET" id="esito" data-ng-class="esitoFls == 'E' ? 'statoKO' : 'statoOK'"></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div style="width: 42%;float: left">
+                <label>File In ingresso</label>
+                <table class="detTable">
+                    <thead class="thead-inverse detTable">
+                    <tr class="detTable">
+                        <th class="detTable">Id File</th>
+                        <th class="detTable">Nome File</th>
+                        <th class="detTable">Data Lavorazione</th>
+                    </tr>
+                    </thead>
+                    <tbody class="detTable">
+                    <tr class="detTable" ng-repeat="file in listaFile | filter: 'init' | orderBy:'-idFile'"
+                        data-ng-class="!$last ? 'ultimaRiga' : 'other'">
+                        <td>{{file.idFile}}</td>
+                        <td>
+                            <small>{{file.nomeFile}}</small>
+                        </td>
+                        <td>{{file.dataInsert | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div style="width: 40%;float: right">
+                <label>File Prodotti</label>
+                <table class="detTable">
+                    <thead class="thead-inverse detTable">
+                    <tr class="detTable">
+                        <th class="detTable">Id File</th>
+                        <th class="detTable">Nome File</th>
+                        <th class="detTable">Data Produzione</th>
+                    </tr>
+                    </thead>
+                    <tbody class="detTable">
+                    <tr class="detTable" ng-repeat="file in listaFile | filter: '!init' | orderBy:'-idFile'"
+                        data-ng-class="!$last ? 'ultimaRiga' : 'other'">
+                        <td>{{file.idFile}}</td>
+                        <td>
+                            <small>{{file.nomeFile}}</small>
+                        </td>
+                        <td>{{file.dataInsert | date: 'dd-MM-yyyy HH:mm'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="control-group" style="padding-top: 15%;padding-left: 1%;">
+            <div class="controls form-inline">
+                <label for="idFl1">Descrizione</label>
+                <input type="text" readonly class="input-small form-control" id="idFl1"
+                       style="margin-right: 5%;width: 45%" data-ng-model="dscrzError">
+                <label for="logCmplt"></label>
+                <button class="btn btn-danger btn-sm" id="logCmplt" data-toggle="modal" data-target="#myModal"
+                        style="margin-left: -5%;"><span class="glyphicon glyphicon-info-sign"></span> Log Completo
+                </button>
+            </div>
+        </div>
+<!--  data-toggle="modal" data-target="#myModalMail" -->
+        <div class="control-group" style="margin-top: 5%;">
+            <div class="controls form-inline">
+                <label for="idFl11">Invio E-Mail</label>
+                <input type="text" readonly class="input-small form-control" id="idFl11"
+                       style="margin-right: 5%;width: 45%" data-ng-model="mailOccurence">
+                <label for="logCmplt1"></label>
+                <button data-ng-click="reInviaMail();" class="btn btn-warning btn-sm" id="logCmplt1"
+                        style="margin-left: -5%;"><span class="glyphicon glyphicon-envelope"></span> Riesegui invio e-mail
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="container">
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog" style="display: none; margin-top: 10%;">
+            <div class="modal-dialog" style="width: 75%;">
+
+                <!-- Modal content-->
+                <div class="modal-content" style="width: 1000px;/* padding-top: 4%; */">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">Log Completo</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{fullLOG}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModalMail" role="dialog" style="display: none; margin-top: 5%;">
+            <div class="modal-dialog" style="width: 75%;">
+
+                <!-- Modal content-->
+                <div class="modal-content" style="width: 1000px;/* padding-top: 4%; */">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{noMail}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
