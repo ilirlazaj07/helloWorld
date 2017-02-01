@@ -15,7 +15,7 @@ import org.hibernate.Transaction;
  * @author ILAZAJ
  */
 public class CorsoDAO {
-
+    
     public static Response inserisciCorso(Corso corso) {
         Response response = Response.status(201).entity("[\"esito: inserito\"]").build();;
         Session session = Risorsa.getIstanza().openSession();
@@ -35,7 +35,7 @@ public class CorsoDAO {
         }
         return response;
     }
-
+    
     public static Response cancellaCorso(int id) {
         Response response = Response.status(201).entity("[\"esito: cancellato\"]").build();;
         Session session = Risorsa.getIstanza().openSession();
@@ -56,12 +56,12 @@ public class CorsoDAO {
         }
         return response;
     }
-
+    
     public static List<Corso> tuttiCorsi() {
         Session session = Risorsa.getIstanza().openSession();
         Transaction transazione = null;
         List<Corso> corsi = new ArrayList<Corso>();
-
+        
         try {
             transazione = session.beginTransaction();
             Query query = session.getNamedQuery("Corso.findAll");
@@ -77,5 +77,30 @@ public class CorsoDAO {
         }
         return corsi;
     }
-
+    
+    public static Response modificaCorso(Corso corsoIn) {
+        Response response = Response.status(200).entity("[\"esito: modificato\"]").build();;
+        Session session = Risorsa.getIstanza().openSession();
+        Transaction transazione = null;
+        
+        try {
+            transazione = session.beginTransaction();
+            Corso corso = (Corso) session.get(Corso.class, corsoIn.getId());
+            corso.setDettaglio(corsoIn.getDettaglio());
+            corso.setNome(corsoIn.getNome());
+            session.update(corso);
+            transazione.commit();
+        } catch (HibernateException e) {
+            if (transazione != null) {
+                transazione.rollback();
+            }
+            e.printStackTrace();
+            response = Response.status(500).entity("[\"esito: non modificato\"]").build();
+        } finally {
+            session.close();
+        }
+        
+        return response;
+    }
+    
 }

@@ -36,4 +36,20 @@ helloWorldFakt.factory('InsertCorsoService', function($http, $q) {
 	};
 });
 
+helloWorldFakt.factory('ModifyCorsoService', function($http, $q) {
+	var out = function(corso) {
+		var defered = $q.defer();
+		$http.put('ws/corsi/modifica', corso).then(function(response) {
+			defered.resolve(response.data);
+		}, function(response) {
+			defered.reject(response);
+		});
+		return defered.promise;
+	};
+
+	return {
+		modificaCorso : out
+	};
+});
+
 

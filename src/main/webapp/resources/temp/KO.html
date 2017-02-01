@@ -1,22 +1,49 @@
 <table style="width:98%;margin-left: 1%;">
     <thead class="thead-inverse">
-    <tr>
-        <th>ID</th>
-        <th>NOME CORSO</th>
-        <th>DETTAGLIO CORSO</th>
-        <th>AZIONI</th>
-    </tr>
+        <tr>
+            <th>ID</th>
+            <th>NOME CORSO</th>
+            <th>DETTAGLIO CORSO</th>
+            <th>AZIONI</th>
+        </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="corso in corsi">
-        <td>{{corso.id}}</td>
-        <td>{{corso.nome}}</td>
-        <td>{{corso.dettaglio}}</td>
-        <td>
-            <button type="button" class="btn btn-default btn-xs"  data-ng-click="eliminaCorso(corso)">Rimuovi <span class="glyphicon glyphicon-floppy-remove"></span></button>
-        </td>
-    </tr>
+        <tr ng-repeat="corso in corsi">
+            <td>{{corso.id}}</td>
+            <td>{{corso.nome}}</td>
+            <td>{{corso.dettaglio}}</td>
+            <td>
+                <button type="button" class="btn btn-default btn-xs"  data-ng-click="eliminaCorso(corso)">Rimuovi <span class="glyphicon glyphicon-remove"></span></button>
+                <button type="button" class="btn btn-default btn-xs"  data-ng-click="inModifica(corso)">Modifica <span class="glyphicon glyphicon-edit"></span></button>
+            </td>
+        </tr>
     </tbody>
 </table>
 
+   <div class="modal" 
+     id="memberModalMod" 
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="memberModalModLabel" 
+     data-backdrop="static" 
+     data-keyboard="false" 
+     aria-hidden="true">
+    <div class="modal-dialog" style="width: 90%;padding-top: 5%;">
+        <div class="modal-content" style="height: 30%;">
+            <div class="modal-header">
+                <h4 class="modal-title" id="memberModalModLabel">Modifica Corso</h4>
+            </div>
+            <div class="modal-body">
+                <div style="width: 100%;height: 100%;" >
+                    <form id="formCorso" name="formCorso"   ng-submit="formCorso.$valid && modificaCorso();">
+                        <input type="text" ng-model="corsoInMod.nome" ng-required="true" placeholder="Nome Corso" />
+                        <input type="text" ng-model="corsoInMod.dettaglio" ng-required="true" placeholder="Dettaglio Corso" />
+                        <button type="submit" class="btn btn-primary">Conferma Modifica</button>
+                        <button type="button" class="btn btn-primary" ng-click="annulla(undefined);">Annulla</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
